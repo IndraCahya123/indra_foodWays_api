@@ -13,10 +13,11 @@ router.post("/register", userRegister);
 router.post("/login", userLogin);
 
 //users
-const { getAllUsers, deleteUser } = require('../controller/users');
+const { getAllUsers, deleteUser, editUser } = require('../controller/users');
 
-router.get("/users", authentication, getAllUsers);
-router.delete("/user/:id", deleteUser);
+router.get("/users", getAllUsers);
+router.delete("/user/:id", authentication, deleteUser);
+router.patch("/user/:id", authentication, uploadImageFile("image"), editUser);
 
 //products
 const {
