@@ -14,13 +14,16 @@ module.exports = {
         references: {
           model: "Transactions",
           key: "id"
-        }
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
       },
       userId: {
         type: Sequelize.INTEGER
       },
       productId: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: Sequelize.INTEGER,
       },
       qty: {
         type: Sequelize.INTEGER

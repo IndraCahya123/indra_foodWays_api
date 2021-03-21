@@ -109,7 +109,7 @@ exports.addNewProduct = async (req, res) => {
         //validate user input
         const schemaProductInput = Joi.object({
             title: Joi.string().min(4).max(100).required(),
-            price: Joi.number().min(4).max(20).required()
+            price: Joi.number().min(1000).required()
         });
 
         const { error } = schemaProductInput.validate(req.body);
@@ -145,6 +145,7 @@ exports.addNewProduct = async (req, res) => {
                 product: {
                     id: addProduct.id,
                     title: addProduct.title,
+                    price: addProduct.price,
                     image: addProduct.image,
                     user,
                 }
@@ -191,7 +192,6 @@ exports.editProduct = async (req, res) => {
                 message: "Product doesn't exist",
             });
         
-
         //validate user input
         const schemaProductInput = Joi.object({
             title: Joi.string().min(4).max(100),

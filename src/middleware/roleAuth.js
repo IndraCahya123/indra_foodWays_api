@@ -32,7 +32,7 @@ exports.partnerAuth = async (req, res, next) => {
             },
         });
 
-        if (user.role === "USER") {
+        if (user.role === "user") {
             next();
         } else {
             res.status(401).send({

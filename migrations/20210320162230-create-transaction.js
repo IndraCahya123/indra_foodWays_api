@@ -18,6 +18,10 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE"
       },
+      partnerId: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
       status: {
         type: Sequelize.STRING
       },

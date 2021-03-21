@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   Transaction.init({
     userId: DataTypes.INTEGER,
+    partnerId: DataTypes.INTEGER,
     status: DataTypes.STRING
   }, {
     sequelize,

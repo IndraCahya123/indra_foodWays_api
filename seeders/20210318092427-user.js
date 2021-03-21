@@ -1,12 +1,15 @@
 'use strict';
 
+const bcrypt = require("bcrypt");
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    const passwordHashed = await bcrypt.hash("12345678", 10);
     return queryInterface.bulkInsert("Users", [
       {
         fullname: "Burger King",
         email: "burgerking@email.com",
-        password: "burgerking",
+        password: passwordHashed,
         phone: "081xxxxxxx",
         location: "082138193913,0292912193201",
         image: "",
@@ -17,7 +20,7 @@ module.exports = {
       {
         fullname: "Starbucks",
         email: "starbucks@email.com",
-        password: "starbucks",
+        password: passwordHashed,
         phone: "081xxxxxxx",
         location: "082138193913,0292912193201",
         image: "",
@@ -28,7 +31,7 @@ module.exports = {
       {
         fullname: "Indra Cahya Bali",
         email: "indra@email.com",
-        password: "indra",
+        password: passwordHashed,
         phone: "081xxxxxxx",
         location: "082138193913,0292912193201",
         image: "",
@@ -39,7 +42,7 @@ module.exports = {
       {
         fullname: "Parman",
         email: "parman@email.com",
-        password: "parman",
+        password: passwordHashed,
         phone: "081xxxxxxx",
         location: "082138193913,0292912193201",
         image: "",

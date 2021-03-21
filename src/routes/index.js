@@ -35,4 +35,20 @@ router.post("/product", authentication, partnerAuth, uploadImageFile("image", fa
 router.patch("/product/:productId", authentication, partnerAuth, uploadImageFile("image", true), editProduct);
 router.delete("/product/:productId", authentication, partnerAuth, deleteProduct);
 
+//transactions
+const { addTransaction,
+        deleteTransaction,
+        getTransactionsByPartnerId,
+        getDetailTransaction,
+        editTransaction,
+        getMyTransactions,
+            } = require("../controller/transactions");
+
+router.post("/transaction", authentication, userAuth, addTransaction);
+router.delete("/transaction/:id", authentication, userAuth, deleteTransaction);
+router.get("/transactions/:partnerId", authentication, getTransactionsByPartnerId);
+router.get("/transaction/:id", authentication, getDetailTransaction);
+router.patch("/transaction/:id", authentication, editTransaction);
+router.get("/my-transactions", authentication, getMyTransactions);
+
 module.exports = router;
