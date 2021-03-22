@@ -247,36 +247,18 @@ exports.getDetailTransaction = async (req, res) => {
                 message: "Transactions not found"
             });
 
-        //search user to know the user role
+        //check user who edited has authorization
+        if (transactionSelected.userId !== req.userId.id && transactionSelected.partnerId !== req.userId.id)
+            return res.send({
+                status: "Error",
+                message: "You haven't authorization to access this."
+            });
         //get userOrder
         const userOrder = await User.findOne({
             where: {
                 id: transactionSelected.userId,
             },
-            attributes: {
-                exclude: ["password", "image", "createdAt", "updatedAt"]
-            }
-        });
-
-        if (userOrder.role != "user" && userOrder.role != "partner") {
-            return res.send({
-                status: "Error",
-                message: "You haven't authorization to access this."
-            });
-        } else if (userOrder.role == "user") {
-            //check user who edited has authorization
-            if (transactionSelected.userId !== req.userId.id)
-                return res.send({
-                    status: "Error",
-                    message: "You haven't authorization to access this."
-                }); transactionSelected.partnerId !== req.userId.id
-        } else if (userOrder.role == "partner") {
-            if (transactionSelected.partnerId !== req.userId.id)
-                return res.send({
-                    status: "Error",
-                    message: "You haven't authorization to access this."
-                });
-        }
+            attributes: 
         
         //get the orders
         const getOrders = await Order.findAll({
