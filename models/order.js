@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         as: "product",
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
-      });
+      });lasdjflia
     }
   };
   Order.init({
