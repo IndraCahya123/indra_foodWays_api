@@ -253,16 +253,12 @@ exports.getDetailTransaction = async (req, res) => {
                 status: "Error",
                 message: "You haven't authorization to access this."
             });
-        
         //get userOrder
         const userOrder = await User.findOne({
             where: {
                 id: transactionSelected.userId,
             },
-            attributes: {
-                exclude: ["password", "image", "role", "createdAt", "updatedAt"]
-            }
-        })
+            attributes: 
         
         //get the orders
         const getOrders = await Order.findAll({
