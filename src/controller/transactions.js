@@ -150,18 +150,18 @@ exports.getTransactionsByPartnerId = async (req, res) => {
                 partnerId,
             },
             attributes: {
-                exclude: ["partnerId", "UserId", "createdAt", "updatedAt"]
+                exclude: ["UserId", "createdAt", "updatedAt"]
             }
         });
 
-        if (getTransactions[0].id == undefined)
+        if (!getTransactions[0])
             return res.status(404).send({
                 status: "Error",
                 message: "Transactions not found"
             });
         
         //check who will access the transaction
-        if (getTransactions && getTransactions[0].partnerId !== req.userId.id)
+        if (getTransactions && getTransactions[0].partnerId != req.userId.id)
             return res.status(401).send({
                 status: "Error",
                 message: "You haven't authorization to access this transaction",
@@ -237,18 +237,18 @@ exports.getDetailTransaction = async (req, res) => {
                 id,
             },
             attributes: {
-                exclude: ["partnerId", "UserId", "createdAt", "updatedAt"]
+                exclude: ["UserId", "createdAt", "updatedAt"]
             }
         });
 
-        if (transactionSelected.id == undefined)
+        if (!transactionSelected)
             return res.status(404).send({
                 status: "Error",
                 message: "Transactions not found"
             });
 
         //check user who edited has authorization
-        if (transactionSelected.userId !== req.userId.id)
+        if (transactionSelected.userId !== req.userId.id && transactionSelected.partnerId !== req.userId.id)
             return res.send({
                 status: "Error",
                 message: "You haven't authorization to access this."
@@ -321,22 +321,22 @@ exports.editTransaction = async (req, res) => {
                 id,
             },
             attributes: {
-                exclude: ["partnerId", "UserId", "createdAt", "updatedAt"]
+                exclude: ["UserId", "createdAt", "updatedAt"]
             }
         });
         
-        //check user who edited has authorization
-        if (transactionSelected.userId !== req.userId.id)
-        return res.send({
-            status: "Error",
-            message: "You haven't authorization to edit this transaction."
-        });
-
-        if (transactionSelected.id == undefined)
+        if (!transactionSelected)
             return res.status(404).send({
                 status: "Error",
                 message: "Transactions not found"
             });
+        
+        //check user who edited has authorization
+        if (transactionSelected && transactionSelected.partnerId !== req.userId.id)
+        return res.send({
+            status: "Error",
+            message: "You haven't authorization to edit this transaction."
+        });
 
         const schemaTransactionInput = Joi.object({
             status: Joi.string().required(),
@@ -432,6 +432,12 @@ exports.getMyTransactions = async (req, res) => {
                 exclude: ["partnerId", "userId", "UserId", "createdAt", "updatedAt"]
             }
         });
+
+        if (!getTransactions)
+            return res.status(404).send({
+                status: "Error",
+                message: "Transactions not found"
+            });
     
         //get orders by user
         const ordersByUser = [];

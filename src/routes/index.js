@@ -46,8 +46,8 @@ const { addTransaction,
             } = require("../controller/transactions");
 
 router.post("/transaction", authentication, userAuth, addTransaction);
-router.delete("/transaction/:id", authentication, userAuth, deleteTransaction);
-router.get("/transactions/:partnerId", authentication, getTransactionsByPartnerId);
+router.delete("/transaction/:id", authentication, deleteTransaction);
+router.get("/transactions/:partnerId", authentication, partnerAuth, getTransactionsByPartnerId);
 router.get("/transaction/:id", authentication, getDetailTransaction);
 router.patch("/transaction/:id", authentication, editTransaction);
 router.get("/my-transactions", authentication, getMyTransactions);

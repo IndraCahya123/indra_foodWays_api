@@ -59,7 +59,6 @@ exports.userRegister = async (req, res) => {
         data: {
             user: {
             fullName: userCreated.fullname,
-            email: userCreated.email,
             role: userCreated.role,
             token,
             },

@@ -16,6 +16,12 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       });
+      Order.belongsTo(models.Product, {
+        foreignKey: "productId",
+        as: "product",
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      });
     }
   };
   Order.init({

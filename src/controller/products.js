@@ -195,7 +195,7 @@ exports.editProduct = async (req, res) => {
         //validate user input
         const schemaProductInput = Joi.object({
             title: Joi.string().min(4).max(100),
-            price: Joi.number().min(4).max(20)
+            price: Joi.number().min(1000)
         });
 
         const { error } = schemaProductInput.validate(req.body);
@@ -221,9 +221,15 @@ exports.editProduct = async (req, res) => {
 
         //update product
 
-        const product = await Product.update(productNewInput, {
+        await Product.update(productNewInput, {
             where: {
                 id: productId
+            }
+        });
+
+        const productUpdated = await Product.findOne({
+            where: {
+                id: productId,
             }
         });
 
@@ -233,9 +239,9 @@ exports.editProduct = async (req, res) => {
             data: {
                 product: {
                     id: productSelected.id,
-                    title: productSelected.title,
-                    price: productSelected.price,
-                    image: productSelected.image,
+                    title: productUpdated.title,
+                    price: productUpdated.price,
+                    image: productUpdated.image,
                     user,
                 }
             }

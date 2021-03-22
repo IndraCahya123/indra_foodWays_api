@@ -47,7 +47,7 @@ exports.deleteUser = async (req, res) => {
             
         //check user
         if (userSelected && userSelected.id !== req.userId.id)
-            return res.status(402).send({
+            return res.status(403).send({
                 status: "Error",
                 message: "You haven't authorization for edit this user"
             });
